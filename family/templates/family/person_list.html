@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Family Tree</title>
-</head>
-<body>
-    <h1>Family Tree</h1>
-    <a href="{% url 'person_create' %}">Add New Person</a>
-    <ul>
-        {% for person in people %}
-            <li>
-                {{ person.first_name }} {{ person.last_name }} —
-                Parents:
-                {% if person.father %}Father: {{ person.father.first_name }}{% endif %}
-                {% if person.mother %}Mother: {{ person.mother.first_name }}{% endif %}
-                <a href="{% url 'person_detail' person.pk %}">Detail</a>
-            </li>
-        {% endfor %}
-    </ul>
-</body>
+<h1>Family Tree</h1>
+
+<form method="get" action=".">
+    <input type="text" name="q" placeholder="Search by surname..." value="{{ query }}">
+    <input type="text" name="clan" placeholder="Filter by clan..." value="{{ clan }}">
+    <button type="submit">Search</button>
+    <a href="{% url 'person_list' %}">Clear</a>
+</form>
+
+<a href="{% url 'person_create' %}">Add New Person</a>
+
+<ul>
+  {% for person in people %}
+    <li>
+      <a href="{% url 'person_detail' person.pk %}">
+        {{ person.first_name }} {{ person.last_name }}
+      </a>
+      {% if person.clan_name %} - Clan: {{ person.clan_name }}{% endif %}
+    </li>
+  {% empty %}
+    <li>No people found.</li>
+  {% endfor %}
+</ul>
+
 </html>
 
 

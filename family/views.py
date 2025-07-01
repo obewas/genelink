@@ -5,8 +5,20 @@ from .forms import PersonForm
 
 # Create your views here.
 def person_list(request):
+    query = request.GET.get('q', '')
+    clan = request.GET.get('clan', '')
     people = Person.objects.all()
-    return render(request, 'family/person_list.html', {'people': people})
+
+    if query:
+        people = people.filter(last_name__icontains=query)
+    if clan:
+        people = people.filter(clan_name__icontains=clan)
+
+    return render(request, 'family/person_list.html', {
+        'people': people,
+        'query': query,
+        'clan': clan,
+    })
 
 def person_detail(request, pk):
     person = get_object_or_404(Person, pk=pk)
