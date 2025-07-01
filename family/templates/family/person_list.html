@@ -1,29 +1,37 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% block title %}Family Tree{% endblock %}
+{% block content %}
 <h1>Family Tree</h1>
 
-<form method="get" action=".">
-    <input type="text" name="q" placeholder="Search by surname..." value="{{ query }}">
-    <input type="text" name="clan" placeholder="Filter by clan..." value="{{ clan }}">
-    <button type="submit">Search</button>
-    <a href="{% url 'person_list' %}">Clear</a>
+<form method="get" action="." class="mb-3">
+    <div class="row g-2">
+        <div class="col">
+            <input type="text" class="form-control" name="q" placeholder="Search by surname..." value="{{ query }}">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" name="clan" placeholder="Filter by clan..." value="{{ clan }}">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="{% url 'person_list' %}" class="btn btn-secondary">Clear</a>
+        </div>
+    </div>
 </form>
 
-<a href="{% url 'person_create' %}">Add New Person</a>
-
-<ul>
+<ul class="list-group">
   {% for person in people %}
-    <li>
+    <li class="list-group-item">
       <a href="{% url 'person_detail' person.pk %}">
         {{ person.first_name }} {{ person.last_name }}
       </a>
-      {% if person.clan_name %} - Clan: {{ person.clan_name }}{% endif %}
+      {% if person.clan_name %} — <em>Clan: {{ person.clan_name }}</em>{% endif %}
     </li>
   {% empty %}
-    <li>No people found.</li>
+    <li class="list-group-item">No people found.</li>
   {% endfor %}
 </ul>
+{% endblock %}
 
-</html>
+
 
 

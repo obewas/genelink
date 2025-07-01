@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Person</title>
-</head>
-<body>
-    <h1>Add Family Member</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-    <a href="{% url 'person_list' %}">Back to Family Tree</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ form.instance.pk|yesno:"Edit Person,Add Person" }}{% endblock %}
+{% block content %}
+<h2>{{ form.instance.pk|yesno:"Edit Person,Add Person" }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'person_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
+

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<h2 class="mb-4">Family Tree Dashboard</h2>
+
+<div class="row text-center mb-4">
+    <div class="col-md-3">
+        <div class="card shadow-sm border-primary">
+            <div class="card-body">
+                <h5>Total People</h5>
+                <p class="display-6">{{ total_people }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-info">
+            <div class="card-body">
+                <h5>Males</h5>
+                <p class="display-6 text-info">{{ male_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-danger">
+            <div class="card-body">
+                <h5>Females</h5>
+                <p class="display-6 text-danger">{{ female_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-warning">
+            <div class="card-body">
+                <h5>Others</h5>
+                <p class="display-6 text-warning">{{ other_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row text-center mb-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-success">
+            <div class="card-body">
+                <h5>Unique Clans</h5>
+                <p class="display-6 text-success">{{ unique_clans }}</p>
+            </div>
+        </div>
+    </div>
+    {% if oldest %}
+    <div class="col-md-6">
+        <div class="card shadow-sm border-secondary">
+            <div class="card-body">
+                <h5>Oldest Person</h5>
+                <p class="mb-1">{{ oldest.first_name }} {{ oldest.last_name }}</p>
+                <small>DOB: {{ oldest.date_of_birth }}</small>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <h5>Top 3 Most Common Surnames</h5>
+        <ol class="mb-0">
+            {% for surname in common_surnames %}
+                <li>{{ surname.last_name }} ({{ surname.count }})</li>
+            {% empty %}
+                <li>No data yet.</li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+
+{% endblock %}
+

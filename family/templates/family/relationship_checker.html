@@ -1,0 +1,26 @@
+<h2>Relationship Checker</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="person1">Person 1:</label>
+    <select name="person1" required>
+        {% for person in people %}
+            <option value="{{ person.pk }}">{{ person.first_name }} {{ person.last_name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="person2">Person 2:</label>
+    <select name="person2" required>
+        {% for person in people %}
+            <option value="{{ person.pk }}">{{ person.first_name }} {{ person.last_name }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Check Relationship</button>
+</form>
+
+{% if result %}
+    <p><strong>Result:</strong> {{ result }}</p>
+{% endif %}
+
+<a href="{% url 'person_list' %}">← Back to Family List</a>
