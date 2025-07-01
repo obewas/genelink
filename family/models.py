@@ -12,6 +12,7 @@ class Person(models.Model):
     middle_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50)
     date_of_birth = models.DateField(null=True, blank=True)
+    clan_name = models.CharField(max_length=100, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     father = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='children_by_father')
     mother = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='children_by_mother')

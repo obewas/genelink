@@ -13,9 +13,11 @@
                 Parents:
                 {% if person.father %}Father: {{ person.father.first_name }}{% endif %}
                 {% if person.mother %}Mother: {{ person.mother.first_name }}{% endif %}
+                <a href="{% url 'person_detail' person.pk %}">Detail</a>
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'person_detail' person.pk %}">Edit</a>
 </body>
 </html>
+
+
