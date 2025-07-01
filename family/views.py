@@ -6,9 +6,10 @@ from django.db.models import Q
 from django.db.models import Count
 from django.utils.timezone import now
 from datetime import timedelta
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def person_list(request):
     query = request.GET.get('q', '')
     clan = request.GET.get('clan', '')
@@ -25,10 +26,13 @@ def person_list(request):
         'clan': clan,
     })
 
+@login_required
 def person_detail(request, pk):
     person = get_object_or_404(Person, pk=pk)
     return render(request, 'family/person_detail.html', {'person': person})
 
+
+@login_required
 def person_create(request):
     if request.method == 'POST':
         form = PersonForm(request.POST)
@@ -39,6 +43,7 @@ def person_create(request):
         form = PersonForm()
     return render(request, 'family/person_form.html', {'form': form})
 
+@login_required
 def person_update(request, pk):
     person = get_object_or_404(Person, pk=pk)
     if request.method == 'POST':
@@ -50,6 +55,7 @@ def person_update(request, pk):
         form = PersonForm(instance=person)
     return render(request, 'family/person_form.html', {'form': form})
 
+@login_required
 def person_delete(request, pk):
     person = get_object_or_404(Person, pk=pk)
     if request.method == 'POST':
@@ -57,6 +63,7 @@ def person_delete(request, pk):
         return redirect('person_list')
     return render(request, 'family/person_confirm_delete.html', {'person': person})
 
+@login_required
 def relationship_checker(request):
     people = Person.objects.all()
     result = None
@@ -106,7 +113,7 @@ def relationship_checker(request):
         'result': result
     })
 
-
+@login_required
 def dashboard(request):
     total_people = Person.objects.count()
     male_count = Person.objects.filter(gender='M').count()
