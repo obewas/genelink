@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Family Tree</title>
+</head>
+<body>
+    <h1>Family Tree</h1>
+    <a href="{% url 'person_create' %}">Add New Person</a>
+    <ul>
+        {% for person in people %}
+            <li>
+                {{ person.first_name }} {{ person.last_name }} —
+                Parents:
+                {% if person.father %}Father: {{ person.father.first_name }}{% endif %}
+                {% if person.mother %}Mother: {{ person.mother.first_name }}{% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

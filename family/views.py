@@ -1,3 +1,20 @@
 from django.shortcuts import render
 
 # Create your views here.
+from django.shortcuts import render, redirect
+from .models import Person
+from .forms import PersonForm
+
+def person_list(request):
+    people = Person.objects.all()
+    return render(request, 'family/person_list.html', {'people': people})
+
+def person_create(request):
+    if request.method == 'POST':
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('person_list')
+    else:
+        form = PersonForm()
+    return render(request, 'family/person_form.html', {'form': form})
