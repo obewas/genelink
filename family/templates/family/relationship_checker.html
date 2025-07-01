@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h2>Relationship Checker</h2>
 
 <form method="post">
@@ -24,3 +27,5 @@
 {% endif %}
 
 <a href="{% url 'person_list' %}">← Back to Family List</a>
+
+{% endblock %}
