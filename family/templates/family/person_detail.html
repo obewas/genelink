@@ -1,0 +1,9 @@
+<h2>{{ person.first_name }} {{ person.last_name }}</h2>
+<p>DOB: {{ person.date_of_birth }}</p>
+<p>Gender: {{ person.get_gender_display }}</p>
+<p>Father: {{ person.father }}</p>
+<p>Mother: {{ person.mother }}</p>
+
+<a href="{% url 'person_update' person.pk %}">Edit</a> |
+<a href="{% url 'person_delete' person.pk %}">Delete</a> |
+<a href="{% url 'person_list' %}">Back to List</a>
